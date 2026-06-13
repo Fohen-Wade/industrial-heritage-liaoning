@@ -26,8 +26,9 @@
         body { margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; background: #f5f6f4; color: var(--text-color); }
 
         /* 导航栏 */
-        nav { position: fixed; top: 0; width: 100%; background: rgba(35, 47, 54, 0.94); backdrop-filter: blur(10px); color: white; display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 5%; z-index: 1000; box-shadow: 0 2px 18px rgba(0,0,0,0.18); }
-        .logo { font-weight: bold; font-size: 1.08rem; letter-spacing: 0; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(35, 47, 54, 0.94); backdrop-filter: blur(10px); color: white; display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 0.9rem 5%; z-index: 1000; box-shadow: 0 2px 18px rgba(0,0,0,0.18); }
+        .logo { font-weight: bold; font-size: 1.08rem; letter-spacing: 0; flex: 0 0 auto; }
+        .links { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px 18px; }
         nav a { color: white; text-decoration: none; margin-left: 20px; transition: 0.3s; font-size: 0.95rem; }
         nav a:hover { color: var(--primary-red); }
 
@@ -386,10 +387,21 @@
         .info-panel::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         .info-panel::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
 
+        @media (max-width: 1180px) {
+            nav { padding: 0.82rem 4%; }
+            .logo { font-size: 0.98rem; }
+            nav a { margin-left: 0; font-size: 0.9rem; }
+            .links { gap: 8px 13px; }
+        }
+
         @media (max-width: 992px) {
             nav { align-items: flex-start; gap: 10px; flex-direction: column; }
-            nav a { margin-left: 0; margin-right: 14px; }
-            .hero { padding: 120px 6% 58px; min-height: 86vh; }
+            .links { justify-content: flex-start; }
+            nav a { margin-left: 0; margin-right: 0; }
+            section { padding: 72px 6%; }
+            .section-title { font-size: 2.05rem; line-height: 1.25; }
+            .section-guide-box { margin: 28px 6% 38px; padding: 22px 24px; }
+            .hero { padding: 142px 6% 58px; min-height: 86vh; }
             .hero-stats { grid-template-columns: 1fr; }
             .guide-container { flex-direction: column; height: auto; }
             .map-wrapper { height: 500px; width: 100%; }
@@ -413,8 +425,60 @@
         }
 
         @media (max-width: 520px) {
+            nav { padding: 0.72rem 4%; gap: 8px; }
+            .logo { font-size: 0.92rem; line-height: 1.35; }
+            .links { width: 100%; flex-wrap: nowrap; overflow-x: auto; gap: 14px; padding-bottom: 2px; scrollbar-width: none; }
+            .links::-webkit-scrollbar { display: none; }
+            nav a { white-space: nowrap; font-size: 0.86rem; }
+            section { padding: 58px 5%; }
+            .section-title { font-size: 1.7rem; margin-bottom: 26px; }
+            .hero { min-height: 86vh; padding: 132px 5% 48px; background-position: center; }
+            .hero-kicker { font-size: 0.88rem; border-radius: 6px; }
+            .hero h1 { font-size: 2.25rem; line-height: 1.12; }
+            .hero p { font-size: 1rem; line-height: 1.75; }
+            .hero-stats { gap: 10px; margin-top: 24px; }
+            .hero-stat { padding: 12px 14px; }
+            .hero-stat strong { font-size: 1.25rem; }
+            .section-guide-box { margin: 20px 5% 30px; padding: 18px 18px; border-radius: 0 8px 8px 0; }
+            .section-guide-title { font-size: 1rem; }
+            .section-guide-text { font-size: 0.95rem; line-height: 1.7; }
+            .history-card-stream { gap: 28px; }
+            .card-img-side { height: 220px; }
+            .card-info-side { padding: 24px 20px; }
+            .card-info-side h3 { font-size: 1.3rem; }
+            .card-info-side p { font-size: 0.96rem; line-height: 1.72; }
+            .image-caption { left: 10px; right: 10px; bottom: 10px; padding: 9px 10px; font-size: 0.78rem; }
+            .guide-section { padding: 58px 4%; }
+            .guide-container { padding: 14px; border-radius: 12px; gap: 16px; }
+            .map-wrapper { height: 360px; border-radius: 10px; }
+            .map-img-real { padding: 4px; }
+            .map-pin .pin-dot { width: 12px; height: 12px; }
+            .map-pin .pin-name { display: none; }
+            .info-panel { height: 420px; padding-right: 0; }
+            .city-group { padding: 16px; margin-bottom: 18px; }
+            .city-header h3 { display: block; font-size: 1.16rem; }
+            .city-header span { display: block; margin-top: 4px; }
+            .heritage-mini-card h4 { display: block; font-size: 1.02rem; }
+            .heritage-mini-card h4::after { display: block; margin-top: 6px; }
+            .detail-page-container { margin: 0; min-height: 100vh; border-radius: 0; padding: 22px 16px; }
+            .detail-header h2 { font-size: 1.7rem; line-height: 1.25; }
+            .detail-section-block h4 { font-size: 1.15rem; }
+            .detail-section-block p { font-size: 0.96rem; line-height: 1.72; text-indent: 0; }
+            .heritage-img-container { padding: 10px; }
+            .heritage-img-caption { padding: 0; font-size: 0.82rem; }
+            .detail-figure { height: 210px; }
+            .spirit-lead, .survey-lead, .history-intro { font-size: 0.98rem; line-height: 1.75; }
+            .heritage-layers, .spirit-grid, .survey-summary, .survey-grid, .interview-grid, .resource-grid, .source-grid { gap: 14px; }
+            .layer-item, .spirit-card, .chart-card, .interview-card, .resource-card, .source-block { padding: 18px; }
+            .spirit-quote { padding: 20px; }
+            .pie-chart { width: 148px; height: 148px; }
+            .pie-chart::after { inset: 31px; }
+            .bar-row { grid-template-columns: 76px 1fr 38px; gap: 8px; font-size: 0.84rem; }
             .video-embed { min-height: 190px; }
             .video-info-box h4 { font-size: 1rem; }
+            .video-card.project-video-slot { max-width: 100%; }
+            .source-panel { padding: 16px; }
+            footer { padding: 30px 18px; }
         }
     </style>
 </head>
