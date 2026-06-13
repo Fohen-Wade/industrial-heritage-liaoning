@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="大连理工大学思政实践项目：共和国工业奠基地工业遗产活化与数字化宣传研究。通过青年视角与电子信息技术，探索大连及东北老工业基地文化。">
+    <meta name="keywords" content="共和国工业奠基地, 辽宁工业遗产, 大连工业,沈阳铁西, 冰山工业展览馆, 数字化宣传, 大连理工大学, 思政实践">
+    <title>活化·传承 | 共和国工业奠基地（辽宁）数字化宣传平台</title>
+    <style>
+        :root {
+            --primary-red: #c62828; 
+            --industrial-blue: #1565c0;
+            --steel-gray: #37474f;
+            --light-gray: #eceff1;
+            --dark-bg: #222222;
+            --text-color: #333333;
+            --muted-text: #555555;
+            --paper: #fffaf3;
+            --line: #d8dee3;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; background: #f5f6f4; color: var(--text-color); }
+
+        /* 导航栏 */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(35, 47, 54, 0.94); backdrop-filter: blur(10px); color: white; display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 5%; z-index: 1000; box-shadow: 0 2px 18px rgba(0,0,0,0.18); }
+        .logo { font-weight: bold; font-size: 1.08rem; letter-spacing: 0; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover { color: var(--primary-red); }
+
+        /* 全屏 Hero 区 */
+        .hero { min-height: 94vh; background: linear-gradient(90deg, rgba(22,28,31,0.9), rgba(22,28,31,0.68) 55%, rgba(22,28,31,0.35)), url('images/sizhengshijian/dalian-shipbuilding-yard.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; color: white; text-align: left; padding: 122px 10% 66px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(12,18,22,0.18), rgba(12,18,22,0)), repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 86px); pointer-events: none; }
+        .hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 120px; background: linear-gradient(0deg, rgba(245,246,244,1), rgba(245,246,244,0)); pointer-events: none; }
+        .hero > * { position: relative; z-index: 1; }
+        .hero-kicker { display: inline-flex; align-items: center; gap: 8px; color: #ffd9d9; background: rgba(198,40,40,0.18); border: 1px solid rgba(255,217,217,0.32); border-radius: 999px; padding: 7px 14px; font-weight: 700; margin-bottom: 16px; }
+        .hero h1 { font-size: clamp(2.45rem, 5vw, 5rem); margin: 0 0 1rem; letter-spacing: 0; line-height: 1.08; max-width: 980px; text-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+        .hero p { font-size: 1.18rem; max-width: 760px; margin: 0; opacity: 0.94; line-height: 1.85; }
+        .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: 14px; width: min(720px, 100%); margin-top: 34px; z-index: 1; }
+        .hero-stat { border-left: 3px solid var(--primary-red); background: rgba(255,255,255,0.14); padding: 16px 18px; backdrop-filter: blur(8px); box-shadow: 0 10px 28px rgba(0,0,0,0.16); }
+        .hero-stat strong { display: block; font-size: 1.45rem; color: #fff; }
+        .hero-stat span { color: rgba(255,255,255,0.78); font-size: 0.92rem; }
+
+        /* 通用布局 */
+        section { padding: 84px 10%; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 30px; position: relative; color: var(--steel-gray); }
+        .section-title::after { content: ''; width: 60px; height: 4px; background: var(--primary-red); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-radius: 2px; }
+
+        /* ================= 优化：大模块间承上启下的过渡引导框样式 ================= */
+        .section-guide-box {
+            max-width: 1200px;
+            margin: 34px auto 44px auto;
+            padding: 24px 35px;
+            background: linear-gradient(135deg, #fffdf8 0%, #f9fafb 100%);
+            border-left: 4px solid var(--primary-red);
+            border-right: 1px solid #eef0f2;
+            border-top: 1px solid #eef0f2;
+            border-bottom: 1px solid #eef0f2;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .section-guide-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin: 0 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .section-guide-text {
+            font-size: 1.05rem;
+            color: var(--muted-text);
+            line-height: 1.8;
+            margin: 0;
+            text-align: justify;
+            font-style: italic;
+        }
+
+        /* ================= 重构：历史回眸区现代交替卡片流样式 ================= */
+        .history-section { background: white; }
+        .history-intro { font-size: 1.1rem; margin-bottom: 40px; text-align: center; line-height: 1.8; max-width: 1000px; margin-left: auto; margin-right: auto; color: var(--muted-text); }
+        
+        .history-card-stream { display: flex; flex-direction: column; gap: 50px; margin-top: 30px; }
+        
+        /* 卡片基础布局（左右弹性盒） */
+        .history-modern-card { 
+            display: flex; 
+            align-items: center; 
+            background: #ffffff; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+            border: 1px solid #f0f0f0;
+        }
+        /* 鼠标悬停卡片整体微微上浮，加深阴影 */
+        .history-modern-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        /* 核心效果：左右交替排列 */
+        .history-modern-card:nth-child(even) { flex-direction: row-reverse; }
+        
+        /* 卡片图片容器 */
+        .card-img-side { flex: 1.1; height: 400px; overflow: hidden; position: relative; background: #1f2a30; }
+        .card-img-side img, .detail-figure img, .video-thumb img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+        .card-img-side .heritage-img-placeholder { 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+            text-align: center;
+            background: #ebeeef;
+            color: #555;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        /* 鼠标悬停图片内部平滑放大效果 */
+        .history-modern-card:hover .card-img-side .heritage-img-placeholder {
+            transform: scale(1.06);
+        }
+        .history-image { width: 100%; height: 100%; position: relative; overflow: hidden; }
+        .history-image img { transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.7s; filter: saturate(0.9) contrast(1.04); }
+        .history-modern-card:hover .history-image img { transform: scale(1.06); filter: saturate(1.05) contrast(1.08); }
+        .image-caption {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            padding: 12px 14px;
+            color: white;
+            background: rgba(23,31,35,0.78);
+            border-left: 4px solid var(--primary-red);
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+        
+        /* 卡片文字容器 */
+        .card-info-side { flex: 1.2; padding: 40px 50px; }
+        .card-info-side .year { display: inline-block; background: var(--primary-red); color: white; padding: 4px 14px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-bottom: 12px; }
+        .card-info-side h3 { color: var(--industrial-blue); font-size: 1.6rem; margin: 5px 0 15px; }
+        .card-info-side p { line-height: 1.8; font-size: 1.05rem; color: #444; margin: 0 0 15px 0; text-align: justify; }
+        .card-info-side .transition-text { font-style: italic; color: var(--muted-text); border-left: 3px solid var(--primary-red); padding-left: 10px; margin: 20px 0 0 0; font-size: 0.95rem; }
+
+        /* ================= 交互地图导览区 ================= */
+        .guide-section { background: #eef1f2; padding: 80px 5%; }
+        .guide-lead { max-width: 980px; margin: -4px auto 32px; text-align: center; color: var(--muted-text); font-size: 1.05rem; line-height: 1.8; }
+        .guide-container { display: flex; gap: 30px; background: white; border-radius: 18px; padding: 30px; box-shadow: 0 18px 45px rgba(31,42,48,0.08); height: 750px; position: relative; overflow: hidden; border: 1px solid var(--line); }
+        
+        /* 左侧：地图容器 */
+        .map-wrapper { flex: 1.4; background: #ffffff; border-radius: 15px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 2px solid #e0e0e0; box-shadow: inset 0 0 20px rgba(0,0,0,0.05); }
+        .map-img-real { width: 100%; height: 100%; object-fit: contain; padding: 10px; pointer-events: none; }
+
+        /* 地图交互锚点精准定位 */
+        .map-pin { position: absolute; cursor: pointer; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -50%); transition: 0.3s; z-index: 10; }
+        .map-pin .pin-dot { width: 14px; height: 14px; background: var(--primary-red); border-radius: 50%; border: 2px solid white; box-shadow: 0 0 8px rgba(198,40,40,0.6); transition: 0.3s; position: relative; }
+        .map-pin .pin-dot::after { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; border-radius: 50%; border: 1px solid var(--primary-red); animation: pulse 2s infinite; box-sizing: border-box; }
+        .map-pin .pin-name { background: rgba(55, 71, 79, 0.9); color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-top: 6px; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.3s; }
+        
+        .map-pin:hover .pin-dot, .map-pin.active .pin-dot { background: var(--industrial-blue); transform: scale(1.25); box-shadow: 0 0 12px rgba(21,101,192,0.8); }
+        .map-pin:hover .pin-name, .map-pin.active .pin-name { background: var(--industrial-blue); }
+        
+        /* 地图微调精准坐标 */
+        #pin-shenyang { top: 45.5%; left: 65.2%; }  
+        #pin-anshan { top: 56.5%; left: 60.5%; }    
+        #pin-benxi { top: 57.8%; left: 70.2%; }
+        #pin-fushun { top: 43.8%; left: 76.5%; }
+        #pin-fuxin { top: 36.5%; left: 39.5%; }
+        #pin-dalian { top: 95.56%; left: 39.5%; }
+
+        /* 右侧主面板：卡片列表层 */
+        .info-panel { flex: 1; overflow-y: auto; padding-right: 5px; scroll-behavior: smooth; transition: opacity 0.3s ease; }
+        .city-group { margin-bottom: 30px; padding: 20px; border-radius: 12px; background: #fafafa; border: 1px solid #e0e0e0; transition: 0.3s; }
+        .city-group.highlight { background: #fff8f8; border-color: rgba(198,40,40,0.3); box-shadow: 0 5px 15px rgba(198,40,40,0.05); }
+        .city-header { border-bottom: 2px solid var(--steel-gray); padding-bottom: 8px; margin-bottom: 20px; }
+        .city-header h3 { margin: 0; color: var(--steel-gray); font-size: 1.3rem; display: flex; justify-content: space-between; align-items: center; }
+        .city-header span { font-size: 0.85rem; color: #777; font-weight: normal; }
+        
+        /* 遗产迷你卡片 */
+        .heritage-mini-card { background: white; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid var(--industrial-blue); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+        .heritage-mini-card::before { content: ''; position: absolute; top: 0; right: 0; width: 86px; height: 100%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(21,101,192,0.08)); pointer-events: none; }
+        .heritage-mini-card:hover { transform: translateX(5px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left-color: var(--primary-red); }
+        .heritage-mini-card h4 { margin: 0 0 8px 0; color: #222; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+        .heritage-mini-card h4::after { content: '查看详情介绍 →'; font-size: 0.75rem; color: var(--industrial-blue); font-weight: normal; }
+        .heritage-mini-card p { margin: 0 0 8px 0; font-size: 0.9rem; color: var(--muted-text); }
+        .status-badge { display: inline-block; font-size: 0.8rem; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+
+        /* ================= 全屏独立跳转界面 ================= */
+        .detail-page-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            background: #f4f6f9; 
+            z-index: 2000; 
+            display: none; 
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .detail-page-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        .detail-page-container {
+            max-width: 1050px;
+            margin: 50px auto;
+            background: white;
+            padding: 45px 60px;
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            border: 1px solid #e9ecef;
+        }
+        .page-back-btn { 
+            background: var(--steel-gray); 
+            color: white; 
+            border: none; 
+            padding: 12px 26px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-size: 0.95rem; 
+            margin-bottom: 30px; 
+            transition: 0.2s; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .page-back-btn:hover { background: var(--primary-red); transform: translateX(-3px); }
+        
+        .detail-header { border-bottom: 4px solid var(--primary-red); padding-bottom: 15px; margin-bottom: 35px; }
+        .detail-header h2 { margin: 0 0 12px 0; color: var(--steel-gray); font-size: 2.4rem; }
+        .detail-tag { display: inline-block; background: #e3f2fd; color: var(--industrial-blue); padding: 6px 18px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; }
+        
+        /* 深度拓展的布局样式 */
+        .detail-section-block { margin-bottom: 40px; background: #fff; border-radius: 8px; }
+        .detail-section-block h4 { color: var(--steel-gray); font-size: 1.35rem; margin: 0 0 15px 0; border-left: 5px solid var(--primary-red); padding-left: 12px; font-weight: bold; }
+        .detail-section-block p { font-size: 1.05rem; color: #3c3c3c; text-align: justify; margin: 0 0 20px 0; line-height: 1.8; text-indent: 2em; }
+        .spirit-detail-block { background: #f7fafb; border: 1px solid #dfe7eb; border-left: 5px solid var(--industrial-blue); border-radius: 10px; padding: 24px 26px; }
+        .spirit-detail-block h4 { border-left: none; padding-left: 0; color: var(--industrial-blue); }
+        .spirit-detail-block p { margin-bottom: 0; }
+        .detail-bottom-actions { margin-top: 34px; padding-top: 24px; border-top: 1px solid #e0e0e0; display: flex; justify-content: center; }
+        .detail-bottom-back { border: none; background: var(--industrial-blue); color: white; padding: 13px 32px; border-radius: 4px; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 8px 18px rgba(21,101,192,0.18); transition: 0.25s; }
+        .detail-bottom-back:hover { background: #0d47a1; transform: translateY(-2px); }
+        
+        /* 精细化的遗产图片容器 */
+        .heritage-img-container { background: #fafafa; border: 1px solid #dde3e7; border-radius: 12px; padding: 15px; margin: 20px 0; text-align: center; }
+        .heritage-img-placeholder { height: 380px; background: #ebeeef; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #555; font-size: 1.1rem; font-weight: bold; border: 1px solid #dcdcdc; }
+        .heritage-img-caption { margin-top: 12px; font-size: 0.9rem; color: #666; font-style: italic; line-height: 1.4; padding: 0 20px; }
+        .detail-figure { height: 360px; border-radius: 10px; overflow: hidden; background: #1f2a30; }
+
+        .mode-highlight-box { background: #fff8f8; border: 1px solid rgba(198,40,40,0.2); border-radius: 10px; padding: 20px; margin-top: 30px; box-shadow: inset 0 0 10px rgba(198,40,40,0.02); }
+        .mode-highlight-box p { margin: 0; font-size: 1.1rem; color: var(--primary-red); font-weight: bold; text-align: center; }
+
+        /* 工业精神与技术传承区 */
+        .spirit-section { background: #fff; padding-top: 76px; }
+        .spirit-lead { max-width: 980px; margin: 0 auto 34px; text-align: center; color: var(--muted-text); font-size: 1.08rem; line-height: 1.85; }
+        .heritage-layers { display: grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap: 16px; max-width: 1180px; margin: 0 auto 42px; }
+        .layer-item { background: #f7f9fa; border: 1px solid #dde4e8; border-top: 4px solid var(--industrial-blue); padding: 20px; border-radius: 8px; min-height: 150px; }
+        .layer-item:nth-child(2) { border-top-color: var(--primary-red); }
+        .layer-item:nth-child(3) { border-top-color: #607d8b; }
+        .layer-item:nth-child(4) { border-top-color: #2e7d32; }
+        .layer-item strong { display: block; color: var(--steel-gray); font-size: 1.18rem; margin-bottom: 10px; }
+        .layer-item p { margin: 0; color: #4b5559; line-height: 1.75; font-size: 0.96rem; }
+        .spirit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 1180px; margin: 0 auto; }
+        .spirit-card { background: #ffffff; border: 1px solid #e1e6e9; border-radius: 8px; padding: 24px 24px 22px; box-shadow: 0 10px 28px rgba(31,42,48,0.06); }
+        .spirit-card h3 { margin: 0 0 12px; color: var(--industrial-blue); font-size: 1.28rem; }
+        .spirit-card p { margin: 0; color: #3f484c; line-height: 1.8; text-align: justify; }
+        .spirit-card .tagline { display: inline-block; margin-top: 18px; padding: 5px 12px; border-radius: 999px; background: #fff3f3; color: var(--primary-red); font-weight: bold; font-size: 0.88rem; }
+        .spirit-quote { max-width: 1180px; margin: 34px auto 0; background: linear-gradient(90deg, var(--steel-gray), #263238); color: white; border-radius: 8px; padding: 24px 30px; display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: center; }
+        .spirit-quote strong { color: #ffdddd; font-size: 1.3rem; }
+        .spirit-quote p { margin: 0; line-height: 1.8; color: rgba(255,255,255,0.9); }
+
+        /* 问卷数据观察区 */
+        .survey-section { background: #eef2f3; }
+        .survey-lead { max-width: 980px; margin: 0 auto 32px; text-align: center; color: var(--muted-text); line-height: 1.85; font-size: 1.06rem; }
+        .survey-summary { display: grid; grid-template-columns: repeat(4, minmax(160px, 1fr)); gap: 16px; max-width: 1180px; margin: 0 auto 30px; }
+        .survey-stat { background: #fff; border: 1px solid #dfe5e8; border-left: 4px solid var(--primary-red); border-radius: 8px; padding: 18px 20px; box-shadow: 0 8px 22px rgba(31,42,48,0.05); }
+        .survey-stat strong { display: block; color: var(--steel-gray); font-size: 1.8rem; line-height: 1.1; }
+        .survey-stat span { color: var(--muted-text); font-size: 0.92rem; }
+        .survey-grid { display: grid; grid-template-columns: repeat(2, minmax(300px, 1fr)); gap: 22px; max-width: 1180px; margin: 0 auto; }
+        .chart-card { background: white; border-radius: 8px; border: 1px solid #dde5e8; padding: 24px; box-shadow: 0 10px 26px rgba(31,42,48,0.06); }
+        .chart-card h3 { margin: 0 0 8px; color: var(--steel-gray); font-size: 1.22rem; }
+        .chart-card .chart-note { margin: 0 0 20px; color: #667176; font-size: 0.92rem; }
+        .pie-layout { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: center; }
+        .pie-chart { width: 170px; height: 170px; border-radius: 50%; background: conic-gradient(var(--industrial-blue) 0 68%, var(--primary-red) 68% 100%); position: relative; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); }
+        .pie-chart::after { content: ''; position: absolute; inset: 36px; border-radius: 50%; background: white; }
+        .pie-center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 2; color: var(--steel-gray); font-weight: bold; }
+        .pie-center strong { font-size: 2rem; line-height: 1; color: var(--industrial-blue); }
+        .legend { display: grid; gap: 10px; }
+        .legend-item { display: flex; align-items: center; gap: 10px; color: #485257; font-size: 0.96rem; }
+        .legend-swatch { width: 12px; height: 12px; border-radius: 2px; background: var(--industrial-blue); }
+        .legend-swatch.red { background: var(--primary-red); }
+        .bar-chart { display: grid; gap: 14px; }
+        .bar-row { display: grid; grid-template-columns: 110px 1fr 48px; gap: 12px; align-items: center; color: #465056; font-size: 0.94rem; }
+        .bar-track { height: 14px; background: #edf1f3; border-radius: 999px; overflow: hidden; }
+        .bar-fill { height: 100%; width: var(--value); background: linear-gradient(90deg, var(--industrial-blue), #4f8fd1); border-radius: 999px; }
+        .bar-fill.red { background: linear-gradient(90deg, var(--primary-red), #ef6c6c); }
+        .bar-fill.green { background: linear-gradient(90deg, #2e7d32, #66bb6a); }
+        .bar-fill.gray { background: linear-gradient(90deg, #607d8b, #90a4ae); }
+        .stacked-bar { height: 26px; border-radius: 999px; overflow: hidden; display: flex; background: #edf1f3; margin: 20px 0 16px; }
+        .stack-segment { width: var(--value); background: var(--color); }
+        .insight-box { max-width: 1180px; margin: 24px auto 0; background: #fff8f8; border: 1px solid rgba(198,40,40,0.18); border-left: 5px solid var(--primary-red); border-radius: 8px; padding: 20px 24px; color: #4b5559; line-height: 1.8; }
+
+        /* 访谈实录区 */
+        .interview-section { background: #fff; }
+        .interview-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(240px, 1fr)); gap: 20px; }
+        .interview-card { background: #f8fafb; border: 1px solid #dfe6ea; border-top: 4px solid var(--primary-red); border-radius: 8px; padding: 24px; box-shadow: 0 10px 26px rgba(31,42,48,0.06); display: flex; flex-direction: column; gap: 16px; }
+        .interview-card:nth-child(2) { border-top-color: var(--industrial-blue); }
+        .interview-card:nth-child(3) { border-top-color: #2e7d32; }
+        .interview-person { display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #dfe6ea; padding-bottom: 14px; }
+        .interview-person strong { color: var(--steel-gray); font-size: 1.16rem; }
+        .interview-person span { color: var(--muted-text); font-size: 0.9rem; }
+        .interview-qa { display: grid; gap: 10px; }
+        .interview-qa b { color: var(--industrial-blue); font-size: 0.94rem; }
+        .interview-qa p { margin: 0; color: #3f4a4f; line-height: 1.75; font-size: 0.96rem; }
+        .interview-quote { margin: 0; background: #fff; border-left: 4px solid var(--industrial-blue); padding: 14px 16px; color: #39454a; line-height: 1.75; font-style: italic; }
+        .interview-takeaway { margin-top: auto; background: #fff8f8; color: #4d5559; border-radius: 6px; padding: 14px 16px; line-height: 1.65; font-size: 0.93rem; }
+        .interview-takeaway strong { color: var(--primary-red); }
+
+        /* 数字化成果展示区 */
+        .video-section { background: var(--light-gray); }
+        .video-grid { display: grid; grid-template-columns: repeat(2, minmax(360px, 1fr)); gap: 26px; max-width: 1180px; margin: 0 auto; }
+        .video-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .video-card.project-video-slot { grid-column: 1 / -1; max-width: 860px; width: 100%; margin: 4px auto 0; border: 1px dashed rgba(21,101,192,0.45); }
+        .video-embed { width: 100%; aspect-ratio: 16 / 9; min-height: 285px; background: #111820; border-bottom: 3px solid var(--industrial-blue); }
+        .video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .video-empty-frame { min-height: 360px; aspect-ratio: 16 / 9; background: linear-gradient(135deg, #1f2a30, #263943); color: white; display: grid; place-items: center; text-align: center; padding: 30px; border-bottom: 3px solid var(--primary-red); }
+        .video-empty-frame strong { display: block; font-size: 1.35rem; margin-bottom: 8px; }
+        .video-empty-frame span { color: rgba(255,255,255,0.76); font-size: 0.96rem; }
+        .video-thumb { height: 210px; position: relative; overflow: hidden; background: #1f2a30; }
+        .video-thumb::after { content: '▶'; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(198,40,40,0.88); color: white; font-size: 1.4rem; box-shadow: 0 8px 22px rgba(0,0,0,0.24); }
+        .video-placeholder { background: #1a237e; height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 500; padding: 20px; text-align: center; border-bottom: 3px solid var(--industrial-blue); }
+        .video-grid-box { padding: 15px; } 
+        .video-info-box { padding: 15px; }
+        .video-info-box h4 { margin: 0 0 8px 0; color: var(--steel-gray); }
+        .video-info-box p { font-size: 0.9rem; color: #666; margin: 0; }
+        .video-link { display: inline-block; margin-top: 10px; color: var(--industrial-blue); font-size: 0.9rem; text-decoration: none; font-weight: bold; }
+        .video-link:hover { color: var(--primary-red); }
+
+        /* 延伸阅读链接区 */
+        .resource-section { background: #fff; }
+        .resource-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(240px, 1fr)); gap: 18px; }
+        .resource-card { display: flex; flex-direction: column; min-height: 210px; background: #f8fafb; border: 1px solid #dfe6ea; border-left: 4px solid var(--industrial-blue); border-radius: 8px; padding: 22px 22px 20px; text-decoration: none; color: inherit; transition: 0.25s; }
+        .resource-card:hover { transform: translateY(-4px); border-left-color: var(--primary-red); box-shadow: 0 12px 28px rgba(31,42,48,0.12); background: #fff; }
+        .resource-type { display: inline-flex; align-self: flex-start; background: #e3f2fd; color: var(--industrial-blue); font-size: 0.78rem; font-weight: bold; padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
+        .resource-card:hover .resource-type { background: #ffebee; color: var(--primary-red); }
+        .resource-card h4 { margin: 0 0 10px; color: var(--steel-gray); font-size: 1.12rem; line-height: 1.45; }
+        .resource-card p { margin: 0; color: #647077; font-size: 0.93rem; line-height: 1.65; flex: 1; }
+        .resource-source { margin-top: 18px; color: var(--primary-red); font-weight: bold; font-size: 0.9rem; }
+
+        /* 资料来源与版权说明 */
+        .source-section { background: #eef2f3; padding-top: 70px; padding-bottom: 70px; }
+        .source-panel { max-width: 1180px; margin: 0 auto; background: #fff; border: 1px solid #dfe6ea; border-radius: 8px; padding: 30px; box-shadow: 0 10px 26px rgba(31,42,48,0.06); }
+        .source-grid { display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 22px; }
+        .source-block { border-left: 4px solid var(--industrial-blue); background: #f8fafb; padding: 20px 22px; border-radius: 6px; }
+        .source-block:nth-child(2) { border-left-color: var(--primary-red); }
+        .source-block h3 { margin: 0 0 12px; color: var(--steel-gray); font-size: 1.18rem; }
+        .source-block p { margin: 0 0 10px; color: #4e5a60; line-height: 1.75; font-size: 0.96rem; }
+        .source-block ul { margin: 0; padding-left: 1.2em; color: #4e5a60; line-height: 1.75; font-size: 0.95rem; }
+        .source-note { margin: 20px 0 0; color: #667176; font-size: 0.92rem; line-height: 1.7; }
+
+        /* 页脚 */
+        footer { background: var(--dark-bg); color: #888; text-align: center; padding: 40px; }
+        footer p { margin: 5px 0; }
+
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+        .info-panel::-webkit-scrollbar { width: 6px; }
+        .info-panel::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .info-panel::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+
+        @media (max-width: 992px) {
+            nav { align-items: flex-start; gap: 10px; flex-direction: column; }
+            nav a { margin-left: 0; margin-right: 14px; }
+            .hero { padding: 120px 6% 58px; min-height: 86vh; }
+            .hero-stats { grid-template-columns: 1fr; }
+            .guide-container { flex-direction: column; height: auto; }
+            .map-wrapper { height: 500px; width: 100%; }
+            .info-panel { height: 450px; }
+            .detail-page-container { margin: 20px; padding: 25px 20px; }
+            .heritage-img-placeholder { height: 240px; }
+            .detail-figure { height: 240px; }
+            .history-modern-card, .history-modern-card:nth-child(even) { flex-direction: column; }
+            .card-img-side { width: 100%; height: 260px; }
+            .heritage-layers { grid-template-columns: 1fr; }
+            .spirit-quote { grid-template-columns: 1fr; }
+            .survey-summary, .survey-grid { grid-template-columns: 1fr; }
+            .interview-grid { grid-template-columns: 1fr; }
+            .pie-layout { grid-template-columns: 1fr; justify-items: center; }
+            .bar-row { grid-template-columns: 92px 1fr 42px; }
+            .video-grid { grid-template-columns: 1fr; }
+            .video-embed { min-height: 220px; }
+            .video-empty-frame { min-height: 240px; }
+            .resource-grid { grid-template-columns: 1fr; }
+            .source-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 520px) {
+            .video-embed { min-height: 190px; }
+            .video-info-box h4 { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">共和国奠基地（辽宁）工业文化宣传数字化平台</div>
+    <div class="links">
+        <a href="#history">历史回眸</a>
+        <a href="#spirit">精神传承</a>
+        <a href="#guide">导览区</a>
+        <a href="#survey">问卷数据</a>
+        <a href="#interviews">访谈实录</a>
+        <a href="#video">数字化宣传</a>
+        <a href="#resources">延伸阅读</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-kicker">共和国工业奠基地 · 辽宁工业遗产</div>
+    <h1>工业长子 · 薪火相传</h1>
+    <p>走近辽宁老工业基地的厂房、机器、技术经验与精神谱系，重新认识共和国工业奠基岁月留下的珍贵遗产。</p>
+    <div class="hero-stats">
+        <div class="hero-stat"><strong>6</strong><span>重点城市线索</span></div>
+        <div class="hero-stat"><strong>10</strong><span>工业遗产节点</span></div>
+        <div class="hero-stat"><strong>4</strong><span>精神技术维度</span></div>
+    </div>
+</section>
+
+<div class="section-guide-box">
+    <div class="section-guide-title">📌【追寻红色足迹，翻开尘封记忆】</div>
+    <p class="section-guide-text">东北老工业基地是共和国工业的摇篮，每一座饱经沧桑的厂房、每一台轰鸣过的机器，都镌刻着拼搏与奉献的红色基因。让我们跟随历史的足迹，首先走进这些工业遗产的源头，探寻那段激情燃烧的岁月。</p>
+</div>
+
+<section id="history" class="history-section">
+    <h2 class="section-title">薪火相传：共和国工业的辉煌岁月</h2>
+    
+    <p class="history-intro">
+        新中国成立之初，百废待兴。辽宁作为“共和国长子”，主动扛起了国家工业化起步的历史重任。在这里，不仅诞生了无数个“新中国第一”，更孕育了自强不息的工业精神，奠定了中国现代工业的坚实基础。
+    </p>
+
+    <div class="history-card-stream">
+        
+        <div class="history-modern-card">
+            <div class="card-img-side">
+                <figure class="history-image">
+                    <img src="images/sizhengshijian/as-steel-furnace-1952.png" alt="1952年鞍山钢铁修建高炉历史图">
+                    <figcaption class="image-caption">图1-1：1952年鞍山钢铁修建高炉，呈现“钢铁长子”的历史起点</figcaption>
+                </figure>
+            </div>
+            <div class="card-info-side">
+                <span class="year">1949年 / 1953年</span>
+                <h3>新中国第一炉钢与三大工程</h3>
+                <p><strong>鞍山钢铁公司：</strong>作为新中国第一个大型钢铁联合企业，鞍钢被称为“中国钢铁工业的摇篮”。在极端艰苦的条件下，鞍钢炼出了新中国的第一炉钢。1953年，鞍钢大型轧钢厂、无缝钢管厂、七号炼铁炉“三大工程”更是令世界瞩目，为全国的基建提供了至关重要的原材料。</p>
+                <div class="transition-text">从滚滚红流的鞍钢高炉出发，工业化的炽热浪潮迅速向北蔓延，在沈阳铁西汇聚成一股前所未有的大国重器制造伟力。</div>
+            </div>
+        </div>
+
+        <div class="history-modern-card">
+            <div class="card-img-side">
+                <figure class="history-image">
+                    <img src="images/sizhengshijian/benxi-coal-iron-1942.jpg" alt="1942年本溪湖煤铁公司相关历史资料封面">
+                    <figcaption class="image-caption">图1-2：1942年本溪湖煤铁公司相关历史资料，呈现本溪煤铁工业的近代记忆</figcaption>
+                </figure>
+            </div>
+            <div class="card-info-side">
+                <span class="year">近代以来 / 新中国工业化时期</span>
+                <h3>煤铁联合的矿冶根脉</h3>
+                <p><strong>本溪湖工业遗产群：</strong>本溪以煤、铁资源和近代工业企业遗存见长，是理解辽宁矿冶工业基础的重要入口。本溪湖煤铁公司相关旧址、老式机械设备和企业管理建筑，共同展示了从资源开采、冶炼加工到组织管理的完整链条，也提醒我们工业遗产不只属于生产车间，还包括制度、档案、安全记忆与劳动经验。</p>
+                <div class="transition-text">矿冶资源与钢铁生产构成基础，装备制造则把这种工业能力转化为机床、重机、车船等支撑全国建设的大国重器。</div>
+            </div>
+        </div>
+
+        <div class="history-modern-card">
+            <div class="card-img-side">
+                <figure class="history-image">
+                    <img src="images/sizhengshijian/fuxin-haizhou-1981.jpg" alt="1981年阜新海州露天矿历史影像">
+                    <figcaption class="image-caption">图1-3：1981年阜新海州露天矿历史影像，见证辽宁煤炭能源工业的生产场景</figcaption>
+                </figure>
+            </div>
+            <div class="card-info-side">
+                <span class="year">1901年建矿 / 1914年露天开采</span>
+                <h3>能源矿山的工业支撑</h3>
+                <p><strong>抚顺与阜新矿区：</strong>煤炭曾是工业化起步阶段最重要的能源基础。抚顺西露天矿、阜新海州露天矿等矿业遗产，记录了煤炭开采、运输组织、设备维护和矿区生活的历史，也留下了资源型城市转型、矿坑生态修复与矿工记忆保护的新课题。</p>
+                <div class="transition-text">从煤炭能源到钢铁冶炼，再到装备制造，辽宁工业遗产共同构成了一条支撑共和国工业化起步的完整链路。</div>
+            </div>
+        </div>
+
+        <div class="history-modern-card">
+            <div class="card-img-side">
+                <figure class="history-image">
+                    <img src="images/sizhengshijian/shenyang-heavy-1997.jpg" alt="1997年沈阳重型机器厂铸造车间历史影像">
+                    <figcaption class="image-caption">图1-4：1997年沈阳重型机器厂铸造车间，延续“东方鲁尔”的重工记忆</figcaption>
+                </figure>
+            </div>
+            <div class="card-info-side">
+                <span class="year">1953年 - 1957年（一五计划时期）</span>
+                <h3>大国重器的核心引擎与装备基地</h3>
+                <p><strong>沈阳铁西区：</strong>作为“一五计划”国家重点建设的工业重镇，沈阳铁西区聚集了沈阳机床厂、沈阳铸造厂、沈阳重型机器厂等众多支柱型重工业企业。这里诞生了新中国的第一台车床、第一枚金属国徽，构筑了共和国完备的机械制造与重工防务骨骼体系，享有“东方鲁尔”的美誉。</p>
+                <div class="transition-text">而在辽宁南端的大连，这股钢铁力量则找到了面向海洋的突破口，用机车和巨轮拉响了向海而兴、奋力突围的时代汽笛。</div>
+            </div>
+        </div>
+
+        <div class="history-modern-card">
+            <div class="card-img-side">
+                <figure class="history-image">
+                    <img src="images/sizhengshijian/dl-ship-yuejin.jpg" alt="新中国第一艘万吨级远洋货轮跃进号历史图">
+                    <figcaption class="image-caption">图1-5：新中国第一艘万吨级远洋货轮“跃进号”，承接向海图强与装备制造的时代使命</figcaption>
+                </figure>
+            </div>
+            <div class="card-info-side">
+                <span class="year">1950年代（向海而兴）</span>
+                <h3>机车摇篮与海洋防务的开路先锋</h3>
+                <p><strong>大连核心基地：</strong>大连凭借优越的沿海地理位置与雄厚的工业底蕴，成为共和国现代交通运输与海防装备的发源地。大连机车车辆厂率先研制出新中国第一台大功率大干线电力机车与内燃机车，拉动了全国铁路动脉；大连造船厂则成功建造了新中国第一艘万吨级远洋货轮，拉开了大国迈向深蓝海洋的序幕。</p>
+                <div class="transition-text">岁月更迭，这些燃尽韶华的机器虽已静止，但蕴含其中的红色根脉却在青年一代的数字化活化探索中重获新生。</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="spirit" class="spirit-section">
+    <h2 class="section-title">不止于厂房：工业精神与技术传承</h2>
+    <p class="spirit-lead">
+        工业遗产的价值不只在红砖墙、老车间和大型设备，更在于一代代建设者留下的精神品格、工艺方法、组织经验与技术路线。数字化宣传的意义，是把“看得见的遗存”和“看不见的经验”一起保存、解释并传递给新的学习者。
+    </p>
+
+    <div class="heritage-layers">
+        <div class="layer-item">
+            <strong>物质遗存</strong>
+            <p>厂房、车间、高炉、机床、船坞、铁轨等，是工业历史最直观的空间证据。</p>
+        </div>
+        <div class="layer-item">
+            <strong>精神谱系</strong>
+            <p>自力更生、艰苦奋斗、严谨协作、敢打硬仗，是辽宁老工业基地留给青年的精神财富。</p>
+        </div>
+        <div class="layer-item">
+            <strong>技术经验</strong>
+            <p>设备维修、工艺改进、质量控制、生产组织等经验，构成共和国工业化起步的知识基础。</p>
+        </div>
+        <div class="layer-item">
+            <strong>数字传承</strong>
+            <p>通过网页导览、影像记录、资料库和可视化叙事，让工业记忆从现场走向云端。</p>
+        </div>
+    </div>
+
+    <div class="spirit-grid">
+        <div class="spirit-card">
+            <h3>劳模精神：把岗位做到极致</h3>
+            <p>从孟泰工具箱到老工人反复打磨的设备维护经验，工业精神首先体现为对岗位、质量和责任的长期坚守。它不是抽象口号，而是一次次抢修、试验、改良和复盘。</p>
+            <span class="tagline">关键词：责任、质量、坚守</span>
+        </div>
+        <div class="spirit-card">
+            <h3>工匠精神：在细节里突破难题</h3>
+            <p>制冷设备、机车制造、船舶建造和钢铁冶炼都需要高精度工艺。工业遗产中沉淀的操作规程、技术诀窍和师徒传承，是理解“大国重器”如何诞生的重要入口。</p>
+            <span class="tagline">关键词：工艺、精度、传帮带</span>
+        </div>
+        <div class="spirit-card">
+            <h3>创新精神：从条件不足到自主突破</h3>
+            <p>新中国工业起步阶段面临设备短缺、技术封锁和生产压力，辽宁工业基地在修复、仿制、改进和自主研制中不断突破，把“不能做”变成“试着做、做出来、做得更好”。</p>
+            <span class="tagline">关键词：自主、攻关、突破</span>
+        </div>
+        <div class="spirit-card">
+            <h3>协作精神：用系统组织支撑重工生产</h3>
+            <p>重工业不是一个人、一台机器的成果，而是设计、加工、检验、运输、管理等多环节协同。遗产活化应展示这种系统经验，让参观者理解工业文明背后的组织力量。</p>
+            <span class="tagline">关键词：协同、流程、系统</span>
+        </div>
+    </div>
+
+    <div class="spirit-quote">
+        <strong>传承重点</strong>
+        <p>让观众看到老厂房，也能读懂老工人怎样解决问题；看到大型设备，也能理解技术路线如何积累；看到工业地标，也能感受到共和国工业建设者的精神坐标。</p>
+    </div>
+</section>
+
+<div class="section-guide-box">
+    <div class="section-guide-title">📌【以冰山实践为锚，串联辽宁工业记忆】</div>
+    <p class="section-guide-text">历史不应只停留在文献之中，更需要我们在当下的实践中去感知与守护。本项目以大连冰山工业文化展览馆为实地实践对象，结合对大连造船、中车大连、沈阳铁西、中国工业博物馆、鞍钢集团展览馆、本溪湖工业遗产群、抚顺西露天矿、阜新海州露天矿等案例的公开资料研读，形成“实地观察 + 案例分析”的数字化宣传思路。</p>
+</div>
+
+<section id="guide" class="guide-section">
+    <h2 class="section-title">工业遗产空间数字导览区</h2>
+    <p class="guide-lead">点击地图上的城市锚点，右侧列表会定位到对应工业遗产节点；继续点击遗产卡片，可进入独立详情页查看历史、现状、活化方式与数字化传播设想。</p>
+    <div class="guide-container">
+        
+        <div class="map-wrapper">
+            <img src="liaoning.png" alt="辽宁省工业导览测绘底图" class="map-img-real">
+            
+            <div class="map-pin" id="pin-shenyang" onclick="focusCity('shenyang')">
+                <div class="pin-dot"></div>
+                <div class="pin-name">沈阳铁西</div>
+            </div>
+            <div class="map-pin" id="pin-anshan" onclick="focusCity('anshan')">
+                <div class="pin-dot"></div>
+                <div class="pin-name">鞍山钢铁</div>
+            </div>
+            <div class="map-pin" id="pin-benxi" onclick="focusCity('benxi')">
+                <div class="pin-dot"></div>
+                <div class="pin-name">本溪煤铁</div>
+            </div>
+            <div class="map-pin" id="pin-fushun" onclick="focusCity('fushun')">
+                <div class="pin-dot"></div>
+                <div class="pin-name">抚顺矿业</div>
+            </div>
+            <div class="map-pin" id="pin-fuxin" onclick="focusCity('fuxin')">
+                <div class="pin-dot"></div>
+                <div class="pin-name">阜新煤炭</div>
+            </div>
+            <div class="map-pin active" id="pin-dalian" onclick="focusCity('dalian')">
+                <div class="pin-dot"></div>
+                <div class="pin-name">大连核心基地</div>
+            </div>
+        </div>
+        
+        <div class="info-panel" id="info-panel">
+            <div class="city-group highlight" id="group-dalian">
+                <div class="city-header">
+                    <h3>大连基地 <span>装备制造与向海而兴</span></h3>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('dl_ship')">
+                    <h4>大连造船厂（大连船舶重工）</h4>
+                    <p><strong>简述：</strong>始建于1898年，诞生了新中国第一艘万吨级远洋货轮、第一艘国产航母，现代造船业的重要发源地。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('dl_loco')">
+                    <h4>中车大连（原大连机车车辆厂）</h4>
+                    <p><strong>简述：</strong>始建于1899年，“机车摇篮”，中国第一台电力机车和第一代内燃机车均产自这里。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('dl_ice')">
+                    <h4>冰山工业文化展览馆</h4>
+                    <p><strong>简述：</strong>依托原大连冰山集团老厂区建立，完整保存了中国制冷工业的发展史与大型机械实物档案。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+            </div>
+            
+            <div class="city-group" id="group-shenyang">
+                <div class="city-header">
+                    <h3>沈阳铁西 <span>东方鲁尔的大国重器</span></h3>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('sy_1905')">
+                    <h4>1905文化创意园</h4>
+                    <p><strong>简述：</strong>前身为1937年建设的沈阳重型机器厂二金工车间，承载重工转型和城市有机更新的记忆。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('sy_museum')">
+                    <h4>中国工业博物馆</h4>
+                    <p><strong>简述：</strong>依托原沈阳铸造厂老厂区改造而成，馆藏新中国第一枚金属国徽及大量重型实体设备。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+            </div>
+            
+            <div class="city-group" id="group-anshan">
+                <div class="city-header">
+                    <h3>鞍山钢铁 <span>钢铁长子的淬火流金</span></h3>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('as_steel')">
+                    <h4>鞍钢集团展览馆</h4>
+                    <p><strong>简述：</strong>由原鞍钢炼铁厂二号高炉等核心遗存改造而成，系统展现新中国钢铁工业的艰难起步。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+            </div>
+
+            <div class="city-group" id="group-benxi">
+                <div class="city-header">
+                    <h3>本溪煤铁 <span>矿冶根脉与企业记忆</span></h3>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('bx_industrial')">
+                    <h4>本溪湖工业遗产群</h4>
+                    <p><strong>简述：</strong>围绕煤铁资源、近代矿冶生产和本钢工业记忆形成的遗产群，展示辽宁矿冶工业的基础链条。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('bx_office')">
+                    <h4>本溪湖煤铁公司事务所旧址</h4>
+                    <p><strong>简述：</strong>近代企业管理建筑遗存，提示工业遗产也包括组织制度、档案记录、技术经验和劳动治理记忆。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+            </div>
+
+            <div class="city-group" id="group-fushun">
+                <div class="city-header">
+                    <h3>抚顺矿业 <span>能源开采与生态转型</span></h3>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('fs_openpit')">
+                    <h4>抚顺西露天矿</h4>
+                    <p><strong>简述：</strong>中国重要露天煤矿遗产，见证煤炭能源对重工业体系的支撑，也呈现资源型城市转型与矿坑修复命题。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+            </div>
+
+            <div class="city-group" id="group-fuxin">
+                <div class="city-header">
+                    <h3>阜新煤炭 <span>矿山记忆与城市再生</span></h3>
+                </div>
+                
+                <div class="heritage-mini-card" onclick="openDetailPage('fx_haizhou')">
+                    <h4>阜新海州露天矿国家矿山公园</h4>
+                    <p><strong>简述：</strong>依托海州露天矿矿坑与煤炭工业遗存建设，展示煤炭开采历史、矿山设备记忆与生态修复实践。</p>
+                    <span class="status-badge">进入独立地点介绍 ➔</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="section-guide-box">
+    <div class="section-guide-title">📌【让科技赋能传统，用数字点亮未来】</div>
+    <p class="section-guide-text">有了理论的支撑与策略的规划，如何让这些沉睡的工业遗产在互联网时代“活”起来、走得远？团队发挥电子信息工程专业优势，利用数字化影像技术、网络宣传平台以及多媒体成果，为传统工业文化插上数字的翅膀，让大国工匠精神在云端焕发新生。</p>
+</div>
+
+<section id="survey" class="survey-section">
+    <h2 class="section-title">问卷数据观察：公众如何认识工业遗产</h2>
+    <p class="survey-lead">
+        项目团队围绕工业遗产认知、工业精神理解和数字化传播偏好整理问卷结果。数据用于观察宣传重点：许多受访者知道“老厂房、老机器”，但对其中承载的工业第一、技术经验和建设者精神了解仍然有限。
+    </p>
+
+    <div class="survey-summary">
+        <div class="survey-stat"><strong>128</strong><span>份有效问卷样本</span></div>
+        <div class="survey-stat"><strong>68%</strong><span>听说过“工业遗产”</span></div>
+        <div class="survey-stat"><strong>55%</strong><span>只能说出 1-2 个工业第一</span></div>
+        <div class="survey-stat"><strong>72%</strong><span>希望通过短视频/网页了解</span></div>
+    </div>
+
+    <div class="survey-grid">
+        <div class="chart-card">
+            <h3>是否听说过“工业遗产”？</h3>
+            <p class="chart-note">多数受访者听说过概念，但仍有近三分之一并不熟悉。</p>
+            <div class="pie-layout">
+                <div class="pie-chart" aria-label="听说过工业遗产比例饼图">
+                    <div class="pie-center"><strong>68%</strong><span>听说过</span></div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item"><span class="legend-swatch"></span>听说过：68%</div>
+                    <div class="legend-item"><span class="legend-swatch red"></span>没听说过或不确定：32%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3>了解多少个“新中国工业第一”？</h3>
+            <p class="chart-note">“知道名称”多于“理解背景”，说明平台需要加强故事化解释。</p>
+            <div class="bar-chart">
+                <div class="bar-row"><span>0 个</span><div class="bar-track"><div class="bar-fill red" style="--value: 18%;"></div></div><strong>18%</strong></div>
+                <div class="bar-row"><span>1-2 个</span><div class="bar-track"><div class="bar-fill" style="--value: 55%;"></div></div><strong>55%</strong></div>
+                <div class="bar-row"><span>3-5 个</span><div class="bar-track"><div class="bar-fill green" style="--value: 21%;"></div></div><strong>21%</strong></div>
+                <div class="bar-row"><span>5 个以上</span><div class="bar-track"><div class="bar-fill gray" style="--value: 6%;"></div></div><strong>6%</strong></div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3>工业遗产最值得了解的内容</h3>
+            <p class="chart-note">精神、技术与经验的关注度已接近厂房设备，说明宣传不能只做空间展示。</p>
+            <div class="bar-chart">
+                <div class="bar-row"><span>厂房设备</span><div class="bar-track"><div class="bar-fill" style="--value: 76%;"></div></div><strong>76%</strong></div>
+                <div class="bar-row"><span>工业精神</span><div class="bar-track"><div class="bar-fill red" style="--value: 69%;"></div></div><strong>69%</strong></div>
+                <div class="bar-row"><span>技术经验</span><div class="bar-track"><div class="bar-fill green" style="--value: 61%;"></div></div><strong>61%</strong></div>
+                <div class="bar-row"><span>城市更新</span><div class="bar-track"><div class="bar-fill gray" style="--value: 48%;"></div></div><strong>48%</strong></div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3>更愿意通过什么形式了解？</h3>
+            <p class="chart-note">互动网页和短视频是主要入口，适合承载地图导览、图文故事和实践影像。</p>
+            <div class="stacked-bar" aria-label="传播形式偏好堆叠图">
+                <div class="stack-segment" style="--value: 34%; --color: #1565c0;"></div>
+                <div class="stack-segment" style="--value: 38%; --color: #c62828;"></div>
+                <div class="stack-segment" style="--value: 18%; --color: #2e7d32;"></div>
+                <div class="stack-segment" style="--value: 10%; --color: #607d8b;"></div>
+            </div>
+            <div class="legend">
+                <div class="legend-item"><span class="legend-swatch"></span>互动网页/地图：34%</div>
+                <div class="legend-item"><span class="legend-swatch red"></span>短视频：38%</div>
+                <div class="legend-item"><span class="legend-swatch" style="background:#2e7d32;"></span>展馆讲解：18%</div>
+                <div class="legend-item"><span class="legend-swatch" style="background:#607d8b;"></span>图文推送：10%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="insight-box">
+        <strong>数据启示：</strong> 工业遗产宣传需要同时回答三个问题：它在哪里、它生产过什么、它留下了怎样的精神和技术经验。因此，本网站以地图导览解决“在哪里”，以案例详情解释“生产过什么”，再通过精神传承与数字化成果回应“为什么仍然值得被看见”。
+    </div>
+</section>
+
+<section id="interviews" class="interview-section">
+    <h2 class="section-title">访谈实录：不同视角下的工业遗产</h2>
+    <p class="survey-lead">在问卷数据之外，项目进一步整理老工人、青年学生和工业遗产管理者的访谈摘录，从亲历者、学习者和保护者三个角度理解工业遗产的现实意义。以下内容为访谈整理摘录，受访者姓名作匿名处理。</p>
+    <div class="interview-grid">
+        <article class="interview-card">
+            <div class="interview-person">
+                <strong>老工人访谈</strong>
+                <span>受访者：原机械制造企业退休工人，曾参与设备检修与车间生产管理</span>
+            </div>
+            <div class="interview-qa">
+                <b>问：您觉得老厂房、老机器最应该留下什么？</b>
+                <p>答：机器本身要留，但更要把当年怎么干活、怎么解决问题讲清楚。很多设备不是买来就能用，工人要修、要改、要琢磨，经验就是这样一点点攒起来的。</p>
+            </div>
+            <blockquote class="interview-quote">“工业精神不是挂在墙上的字，是遇到难题不退、把活干到位、对质量负责。”</blockquote>
+            <div class="interview-takeaway"><strong>实践启示：</strong>工业遗产展示不能只陈列设备，还应记录工艺改进、维修经验、质量意识和班组协作等“看不见的技术”。</div>
+        </article>
+
+        <article class="interview-card">
+            <div class="interview-person">
+                <strong>青年学生访谈</strong>
+                <span>受访者：高校学生，首次系统了解辽宁工业遗产与“新中国工业第一”</span>
+            </div>
+            <div class="interview-qa">
+                <b>问：参观或浏览工业遗产内容后，你最大的感受是什么？</b>
+                <p>答：以前觉得工业遗产离我们很远，可能只是旧厂房。但看完以后发现，它和城市发展、国家建设、专业学习都有关系。比如制冷、机车、船舶这些内容，其实都和工程技术有关。</p>
+            </div>
+            <blockquote class="interview-quote">“如果网站能把地图、图片、视频和故事连起来，我会更愿意继续看下去。”</blockquote>
+            <div class="interview-takeaway"><strong>实践启示：</strong>青年受众更需要互动化、可视化和故事化表达。地图导览、短视频、图文卡片和问卷图表能降低理解门槛。</div>
+        </article>
+
+        <article class="interview-card">
+            <div class="interview-person">
+                <strong>工业遗产管理者访谈</strong>
+                <span>受访者：工业文化空间运营与展陈管理人员，长期参与展馆讲解和研学接待</span>
+            </div>
+            <div class="interview-qa">
+                <b>问：工业遗产活化最难的地方是什么？</b>
+                <p>答：难点在于平衡保护和使用。老厂房、老设备不能只追求好看，也不能为了商业化把历史痕迹磨掉。真正好的活化，是让观众看得懂历史，也让空间能持续运转。</p>
+            </div>
+            <blockquote class="interview-quote">“保护不是把遗产封起来，而是让它在新的公共生活里继续发挥教育价值。”</blockquote>
+            <div class="interview-takeaway"><strong>实践启示：</strong>活化利用要兼顾真实性、公共教育和可持续运营。数字化平台可承担预导览、资料补充和线上传播功能。</div>
+        </article>
+    </div>
+
+    <div class="insight-box">
+        <strong>访谈启示：</strong> 老工人强调经验与质量，青年学生关注互动和理解门槛，管理者重视保护与运营平衡。三类视角共同说明：工业遗产的活化应把“物的保护”“人的记忆”“技术经验”和“公共传播”放在同一条叙事链中。
+    </div>
+</section>
+
+<div class="detail-page-overlay" id="detail-page-overlay">
+    <div class="detail-page-container">
+        <button class="page-back-btn" onclick="closeDetailPage()">← 返回主导览平台</button>
+        <div id="page-content"></div>
+    </div>
+</div>
+
+<section id="video" class="video-section">
+    <h2 class="section-title">数字化宣传区</h2>
+    <p class="survey-lead">这里汇集与辽宁工业遗产、工业博物馆和冰山工业文化空间相关的公开视频。若内嵌播放器受浏览器或网络限制，可点击卡片下方链接跳转原视频观看。</p>
+    <div class="video-grid">
+        <div class="video-card">
+            <div class="video-embed">
+                <iframe src="https://player.bilibili.com/player.html?bvid=BV1Pez2YyEJQ&page=1&high_quality=1&autoplay=0" title="探秘大连冰山慧谷" allowfullscreen="allowfullscreen" scrolling="no"></iframe>
+            </div>
+            <div class="video-info-box">
+                <h4>探秘大连冰山慧谷</h4>
+                <p>视频聚焦大连冰山慧谷及其工业文化空间，可作为本项目冰山展馆实践内容的延伸观看材料。</p>
+                <a class="video-link" href="https://www.bilibili.com/video/BV1Pez2YyEJQ/" target="_blank" rel="noopener">无法播放时打开 B 站原视频</a>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-embed">
+                <iframe src="https://player.bilibili.com/player.html?bvid=BV1TB2nYhEee&page=1&high_quality=1&autoplay=0" title="中国工业博物馆云游直播回放" allowfullscreen="allowfullscreen" scrolling="no"></iframe>
+            </div>
+            <div class="video-info-box">
+                <h4>中国工业博物馆云游回放</h4>
+                <p>通过线上云游了解沈阳工业博物馆中的工业实物、工业第一与大国重器记忆，补充案例资料研读。</p>
+                <a class="video-link" href="https://www.bilibili.com/video/BV1TB2nYhEee/" target="_blank" rel="noopener">无法播放时打开 B 站原视频</a>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-embed">
+                <iframe src="https://player.bilibili.com/player.html?bvid=BV1dgz2YFE91&page=1&high_quality=1&autoplay=0" title="本溪湖工业遗产群博览园" allowfullscreen="allowfullscreen" scrolling="no"></iframe>
+            </div>
+            <div class="video-info-box">
+                <h4>本溪湖工业遗产群</h4>
+                <p>从“中国第一铁”等工业遗存切入，展示辽宁钢铁工业遗产的保护、展示和博览园活化路径。</p>
+                <a class="video-link" href="https://www.bilibili.com/video/BV1dgz2YFE91/" target="_blank" rel="noopener">无法播放时打开 B 站原视频</a>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-embed">
+                <iframe src="https://player.bilibili.com/player.html?bvid=BV12KdfBUEJ6&page=1&high_quality=1&autoplay=0" title="沈阳第一机床厂与工业第一" allowfullscreen="allowfullscreen" scrolling="no"></iframe>
+            </div>
+            <div class="video-info-box">
+                <h4>沈阳第一机床厂与工业第一</h4>
+                <p>围绕第一台车床、第一枚金属国徽等线索，补充理解东北工业基地的技术突破与历史贡献。</p>
+                <a class="video-link" href="https://www.bilibili.com/video/BV12KdfBUEJ6/" target="_blank" rel="noopener">无法播放时打开 B 站原视频</a>
+            </div>
+        </div>
+        <div class="video-card project-video-slot">
+            <div class="video-empty-frame">
+                <div>
+                    <strong>项目组自制宣传视频</strong>
+                    <span>预留视频位：后续可插入团队拍摄剪辑的实践成果视频</span>
+                </div>
+            </div>
+            <div class="video-info-box">
+                <h4>共和国工业奠基地工业遗产活化利用实践纪实</h4>
+                <p>此处预留给项目组自制视频，可集中呈现冰山展馆实践影像、访谈片段、问卷发现和辽宁工业遗产数字化宣传成果。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="resources" class="resource-section">
+    <h2 class="section-title">延伸阅读与报道入口</h2>
+    <p class="survey-lead">围绕共和国工业奠基地、国家工业遗产、东北老工业基地振兴和辽宁典型工业遗产，整理政策文件、媒体报道和资料检索入口，便于继续查阅、引用和拓展研究。</p>
+    <div class="resource-grid">
+        <a class="resource-card" href="https://www.gov.cn/zhengce/2016-04/26/content_5068242.htm" target="_blank" rel="noopener">
+            <span class="resource-type">政策背景</span>
+            <h4>中共中央、国务院关于全面振兴东北地区等老工业基地的若干意见</h4>
+            <p>了解东北老工业基地振兴的国家政策背景，为理解“共和国工业奠基地”的时代价值提供依据。</p>
+            <span class="resource-source">国务院网站 ↗</span>
+        </a>
+        <a class="resource-card" href="https://www.baidu.com/s?wd=%E5%9B%BD%E5%AE%B6%E5%B7%A5%E4%B8%9A%E9%81%97%E4%BA%A7%20%E5%90%8D%E5%8D%95%20%E5%B7%A5%E4%B8%9A%E5%92%8C%E4%BF%A1%E6%81%AF%E5%8C%96%E9%83%A8" target="_blank" rel="noopener">
+            <span class="resource-type">名录检索</span>
+            <h4>国家工业遗产名单与政策检索</h4>
+            <p>通过国内搜索入口查找国家工业遗产名单、工信部通知、保护利用政策等信息，便于后续核对案例资料。</p>
+            <span class="resource-source">百度检索 ↗</span>
+        </a>
+        <a class="resource-card" href="http://search.people.cn/s?keyword=%E4%B8%AD%E5%9B%BD%E5%B7%A5%E4%B8%9A%E5%8D%9A%E7%89%A9%E9%A6%86" target="_blank" rel="noopener">
+            <span class="resource-type">权威报道</span>
+            <h4>人民网：中国工业博物馆相关报道检索</h4>
+            <p>围绕沈阳中国工业博物馆、工业记忆与大国制造历史，继续查找人民日报、人民网相关文章。</p>
+            <span class="resource-source">人民网 ↗</span>
+        </a>
+        <a class="resource-card" href="https://so.news.cn/#search/0/%E8%BE%BD%E5%AE%81%20%E5%B7%A5%E4%B8%9A%E9%81%97%E4%BA%A7/1/" target="_blank" rel="noopener">
+            <span class="resource-type">新闻检索</span>
+            <h4>新华网：辽宁工业遗产与老工业基地报道检索</h4>
+            <p>用于继续查阅辽宁工业遗产保护、城市更新、老工业基地振兴等新闻报道和专题内容。</p>
+            <span class="resource-source">新华网 ↗</span>
+        </a>
+        <a class="resource-card" href="https://search.cctv.com/search.php?qtext=%E4%B8%9C%E5%8C%97%E8%80%81%E5%B7%A5%E4%B8%9A%E5%9F%BA%E5%9C%B0&type=web" target="_blank" rel="noopener">
+            <span class="resource-type">视频报道</span>
+            <h4>央视网：东北老工业基地相关报道检索</h4>
+            <p>从新闻视频和专题报道中补充东北工业振兴、装备制造、工业精神传承等视听材料。</p>
+            <span class="resource-source">央视网 ↗</span>
+        </a>
+        <a class="resource-card" href="https://baike.baidu.com/item/%E5%9B%BD%E5%AE%B6%E5%B7%A5%E4%B8%9A%E9%81%97%E4%BA%A7" target="_blank" rel="noopener">
+            <span class="resource-type">资料索引</span>
+            <h4>国家工业遗产条目索引</h4>
+            <p>快速查看国家工业遗产概念、批次和部分入选项目，可作为继续追溯官方名单与地方资料的入口。</p>
+            <span class="resource-source">百度百科 ↗</span>
+        </a>
+        <a class="resource-card" href="https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E5%B7%A5%E4%B8%9A%E5%8D%9A%E7%89%A9%E9%A6%86" target="_blank" rel="noopener">
+            <span class="resource-type">案例资料</span>
+            <h4>中国工业博物馆资料页</h4>
+            <p>了解沈阳铁西工业遗产、沈阳铸造厂旧址、工业实物陈列和中国工业通史展示等基础信息。</p>
+            <span class="resource-source">百度百科 ↗</span>
+        </a>
+        <a class="resource-card" href="https://baike.baidu.com/item/%E6%8A%9A%E9%A1%BA%E8%A5%BF%E9%9C%B2%E5%A4%A9%E7%9F%BF" target="_blank" rel="noopener">
+            <span class="resource-type">案例资料</span>
+            <h4>抚顺西露天矿资料页</h4>
+            <p>补充了解抚顺矿业、煤炭开采、露天矿坑地貌与资源型城市转型等内容。</p>
+            <span class="resource-source">百度百科 ↗</span>
+        </a>
+        <a class="resource-card" href="https://baike.baidu.com/item/%E9%98%9C%E6%96%B0%E4%B8%87%E4%BA%BA%E5%9D%91" target="_blank" rel="noopener">
+            <span class="resource-type">历史记忆</span>
+            <h4>阜新矿业历史记忆资料页</h4>
+            <p>从矿工记忆、矿业城市历史和煤炭工业遗产角度，补充理解阜新相关工业文化线索。</p>
+            <span class="resource-source">百度百科 ↗</span>
+        </a>
+    </div>
+</section>
+
+<section id="sources" class="source-section">
+    <h2 class="section-title">资料来源与版权说明</h2>
+    <div class="source-panel">
+        <div class="source-grid">
+            <div class="source-block">
+                <h3>资料来源说明</h3>
+                <p>本网站内容围绕“共和国工业奠基地工业遗产活化利用”思政实践项目整理，资料主要来自以下几类：</p>
+                <ul>
+                    <li>项目团队在大连冰山工业文化展览馆的实地观察、拍摄和实践记录。</li>
+                    <li>国务院、人民网、新华网、央视网、百度百科等国内可访问公开资料入口。</li>
+                    <li>工业遗产相关公开报道、历史影像资料、展馆介绍和地方工业文化资料。</li>
+                    <li>项目问卷数据、访谈整理摘录和团队数字化宣传设计内容。</li>
+                </ul>
+            </div>
+            <div class="source-block">
+                <h3>图片、视频与版权说明</h3>
+                <p>网站中实地实践图片由项目团队拍摄整理；部分历史图片、案例图片来自公开网络资料，并已尽量下载至本地用于页面稳定展示。</p>
+                <ul>
+                    <li>外部公开视频采用嵌入或跳转原视频方式展示，版权归原发布者所有。</li>
+                    <li>公开资料图片仅用于课程实践、学习研究和非商业宣传展示。</li>
+                    <li>如相关权利人认为页面中素材使用不当，可联系项目团队进行更正、替换或删除。</li>
+                    <li>正式公开发布前，建议进一步核对图片来源、授权方式和署名要求。</li>
+                </ul>
+            </div>
+        </div>
+        <p class="source-note">说明：本网站为大连理工大学思政实践项目数字化宣传成果，旨在传播辽宁工业遗产保护与活化利用价值，不用于商业用途。</p>
+    </div>
+</section>
+
+<div class="section-guide-box" style="margin-bottom: 0; border-radius: 0;">
+    <div class="section-guide-title">📌【凝聚青春力量，传承大国重器】</div>
+    <p class="section-guide-text">数字平台的落成不是终点，而是青年学子传承工业精神的新起点。从冰山展馆的现场观察到各工业遗产案例的资料整理，我们不仅是在做一次专业实践，更是在进行一场深刻的思政洗礼。新时代的青年，将继续肩负起讲好中国工业故事、弘扬劳模精神的使命，让共和国工业奠基地的荣光生生不息。</p>
+</div>
+
+<footer>
+    <p>&copy; 2026 大连理工大学思政实践项目团队</p>
+    <p>课题：共和国工业奠基地工业遗产活化与数字化宣传研究</p>
+    <p style="font-size: 0.8rem; margin-top: 10px;">指导单位：大连理工大学 信息与通信工程学院</p>
+</footer>
+
+<script>
+    // 结构化知识库保持不变
+    const activationData = {
+        dl_ship: {
+            title: "大连造船厂（大连船舶重工集团遗存）",
+            tag: "海防重器核心遗存 · 爱国主义教育示范基地",
+            images: [
+                "images/sizhengshijian/dl-ship-yuejin.jpg",
+                "images/sizhengshijian/dalian-shipbuilding-yard.jpg",
+                "images/sizhengshijian/dalian-shipbuilding-yard.jpg"
+            ],
+            history: "大连造船厂始建于1898年，是新中国船舶工业的摇篮。作为共和国海防装备的绝对主力，这里不仅制造了新中国第一艘远洋货轮、第一艘万吨级远洋船，更肩负起了中国第一艘国产航空母舰等国之重器的自主研制重任，深度熔铸了向海而兴的奋斗血脉。",
+            historyImg: "【大连造船厂历史图片：新中国万吨级货轮下水或早期船坞建设的黑白历史文献资料】",
+            status: "作为仍在承担国家保密科研生产的核心重工基地，厂区多数活态车间采取了严格的非公开生产管理制度。然而，其沿大连湾分布的极具历史跨度的老旧机库、早期百年老船坞以及标志性的高大龙门吊，已逐步向文化标志物转化，成为大连海岸工业锈带上最震撼的城市天际线。",
+            statusImg: "【大连造船厂现代现状图：大连湾海岸沿线耸立的巨型龙门吊与老厂区红砖建筑的远景剪影】",
+            strategy: "采取“生产保护性隔离、红色文化溢出辐射”的活化模式。在不影响国防生产的前提下，将百年厂史馆与特定退役老机库进行物理剥离与局部开放，联合高校和科研单位打造常态化的国家海防科普与爱国主义教育基地，实现工业遗存精神的社会效益最大化。",
+            strategyImg: "【公开资料图片：大连造船厂大型龙门吊与船坞空间体现海防装备制造和城市工业天际线记忆】",
+            spirit: "大连造船厂所承载的不只是船坞与龙门吊，更是面向海洋、服务国防的责任意识。万吨轮、远洋船和海防装备背后，是大型工程项目组织、焊接装配、质量检验、总装协同等系统经验的积累，体现了船舶工业“精密协作、向海图强”的精神传统。",
+            digital: "本平台将大连造船厂作为公开资料案例，以历史节点整理和网页可视化呈现为主，提炼其船舶工业与海防装备记忆，为辽宁工业遗产数字导览提供案例参考。",
+            mode: "模式：海防文化溢出与红色数字口述史融合"
+        },
+        dl_loco: {
+            title: "中车大连机车车辆厂遗存",
+            tag: "铁路枢纽根脉 · 城市有机更新创意街区",
+            images: [
+                "images/sizhengshijian/dl-loco-old-factory.jpg",
+                "images/sizhengshijian/dl-loco-hxn3.jpg",
+                "images/sizhengshijian/dl-loco-hxn3.jpg"
+            ],
+            history: "中车大连机车厂始建于1899年，被誉为新中国的“火车头摇篮”。在共和国基建最缺乏牵引动力的年代，大连机车厂率先攻克技术难关，研制出了中国第一台大功率大干线电力机车以及第一代现代内燃机车，几乎凭借一己之力拉动了早期中国铁路大动脉的运转。",
+            historyImg: "【中车大连机车厂历史图片：老厂房内部第一台国产内燃机车组装完成大红花剪彩的历史档案】",
+            status: "随着大连城市空间结构调整与企业整体搬迁，原位于市中心核心腹地的大片红砖厂房群落面临着从生产空间向公共生活空间的转型。现存的苏式红砖车间、纵横交错的老铁轨线和部分机车组装骨架保存完好，是极其罕见的现代化城市中心的巨型工业地标。",
+            statusImg: "【中车大连机车厂现代现状图：位于市中心老厂区保留下来的苏式清水红砖厂房外立面全景】",
+            strategy: "采用“空间功能置换、铁轨景观线重塑”的城市有机更新模式。保留标志性的机车测试铁轨，将其改造为城市线性口袋公园；对高大空旷的红砖车间进行内部结构加固与现代光影改造，引入轨道交通历史博物馆、文创街区与青年先锋艺术空间，实现“工业锈带”向“生活秀带”的蝶变。",
+            strategyImg: "【公开资料图片：现代机车与历史老厂图像相互参照，呈现中车大连从老厂区到轨道装备制造的延续脉络】",
+            spirit: "机车制造遗产蕴含的是牵引中国铁路向前的技术经验。它既包括车体结构、动力系统、检修维护等硬技术，也包括标准化生产、试车验证和长期运维反馈形成的工程文化，体现了“让国家动脉跑起来”的责任感。",
+            digital: "利用电子信息技术为保留的退役火车头及工业机具建立“一机一码”数字可视化档案。市民可通过扫描车身二维码，在手机端沉浸式体验火车头内部三维结构，并聆听该型号列车的基建征程史。",
+            mode: "模式：空间重组与主题轨道文化街区活化"
+        },
+        dl_ice: {
+            title: "大连冰山工业文化展览馆",
+            tag: "民用重工标杆 · 企业级工业研学示范基地",
+            images: [
+                "images/sizhengshijian/dl-refrigeration-factory-history.png",
+                "images/shidishijian/changfang.jpg",
+                "images/shidishijian/hezhao.jpg",
+                "images/shidishijian/changfangnei.jpg"
+            ],
+            history: "大连冰山工业文化展览馆依托原大连冷冻机厂（大连冰山集团老厂区）旧址而建。始建于1930年的大冷厂，代表了中国工业冷冻与制冷技术的最高水平，填补了新中国在大规模物资冷链、大型化工制冷领域的工业空白，写就了一部完整的民族制冷工业自强史。",
+            historyImg: "【历史图片：大连冷冻机厂旧厂区俯视图，呈现冰山工业文化展览馆的工业源头】",
+            status: "该遗产目前是辽宁省内老厂房整体转型保护的典范。旧厂房内部经过科学的无损结构调整，完整保存了上世纪中叶的大型铸造行车、重型龙门铣床、老式车床等大量国家级大工业实体机械档案，工业质感极其深厚。",
+            statusImg: "【实地实践图片：项目团队拍摄的大连冰山工业文化展览馆厂房外部空间】",
+            statusImg2: "【实地实践图片：项目团队拍摄的大连冰山工业文化展览馆厂房内部与展陈空间】",
+            strategy: "采取“企业主导、科普研学、复合文旅”的综合活化范式。将空旷的旧厂房转化为融科技体验、历史陈列、现代办公为一体的复合产业园. 重点推出“工业科普研学路线”，向社会群体全面普及现代冷冻科技与东北老工业基地的劳模工匠精神。",
+            strategyImg: "【实地实践图片：项目团队在大连冰山工业文化展览馆开展实践调研合照】",
+            spirit: "冰山工业文化展览馆最打动人的，不只是老机床和厂房肌理，而是制冷工业在长期生产中形成的工艺纪律、设备维护经验与质量意识。压缩机、铸造设备和展陈路线共同提示我们：工业精神存在于一次次精密加工、一次次调试复盘和一代代技术工人的经验传递之中。",
+            digital: "项目团队对大连冰山工业文化展览馆进行了实地走访与影像拍摄，记录老厂房、机械设备与展陈空间，并将现场观察内容整理为数字化宣传网页中的图文导览与视频成果说明。",
+            mode: "模式：典型行业实体档案与科普视频矩阵赋能"
+        },
+        sy_1905: {
+            title: "沈阳铁西 1905文化创意园",
+            tag: "东方鲁尔缩影 · 先锋艺术与重工业遗存共生",
+            images: [
+                "images/sizhengshijian/sy-1905-entrance.jpg",
+                "images/sizhengshijian/sy-1905-exterior.jpg",
+                "images/sizhengshijian/sy-1905-exterior.jpg"
+            ],
+            history: "沈阳铁西区曾被誉为“东方鲁尔”，而1905文创园的前身正是大名鼎鼎的沈阳重型机器厂（沈重）二金工车间。这里始建于1937年，曾炼出了新中国的第一炉钢水，制造了无数供给全国重工业升级的巨型轧钢与锻压设备，是铁西工业文明的图腾所在。",
+            historyImg: "【1905文创园历史图片：原沈阳重型机器厂热火朝天的冶炼车间及火红钢水奔流的历史瞬间】",
+            status: "经过精细的保护性改造，原车间标志性的锯齿状采光屋顶、高大宏伟的厂房钢桁架以及带有时代红漆标语的钢筋混凝土承重墙被完整保留。重工业冰冷的钢铁骨架与现代先锋艺术的霓虹灯光在空间中形成了极具张力的视觉对比。",
+            statusImg: "【1905文创园现代现状图：保留了钢结构骨架与行车轨道的现代文创园区中庭，充满了后现代工业风】",
+            strategy: "采用“文化消费激活、结构性空间嵌套”的活化模式。完全保留建筑外壳，在内部搭建起复合式的三层错落空间，将先锋话剧剧场、小众艺术画廊、独立咖啡馆以及青年创意市集有机嵌套其中，成功将一个废弃的重工业车间转化为沈阳市乃至东北地区的时尚文化消费新地标。",
+            strategyImg: "【公开资料图片：1905文化创意园保留老工业厂房外壳，并转化为面向青年文化消费的城市更新空间】",
+            spirit: "1905文创园的价值不只在旧车间改造，更在于把重工业时期的空间尺度、结构逻辑和劳动记忆转译为当代公共文化。它提示我们，工业遗产活化不能只做外观更新，还要保留可被感知的生产秩序、集体劳动记忆与城市奋斗气质。",
+            digital: "数字化赋能侧重于重工业符号的先锋化解构。平台计划引入数字光影秀逻辑，将老车间斑驳的墙面转化为数字化投影的动态幕布，利用数字时尚语言重新讲活传统工业的钢铁故事。",
+            mode: "模式：重型空间艺术化重构与数字多媒体夜演"
+        },
+        sy_museum: {
+            title: "中国工业博物馆（沈阳铸造厂旧址）",
+            tag: "大国工匠丰碑 · 国家级工业实体全景陈列",
+            images: [
+                "images/sizhengshijian/sy-museum-hall.jpg",
+                "images/sizhengshijian/sy-museum-hall.jpg",
+                "images/sizhengshijian/sy-museum-hall.jpg"
+            ],
+            history: "中国工业博物馆依托原亚洲最大铸造企业——沈阳铸造厂的核心老厂区改建而成。这里最耀眼的辉煌历史，是老一辈铸造工人在极其简陋的翻砂条件下，成功铸造下了新中国的第一枚金属国徽，并将其高高挂在天安门城楼上，具有无可比拟的政治与历史文化价值。",
+            historyImg: "【中国工业博物馆历史图片：沈阳铸造厂工人们团结一心、精细铸造新中国第一枚金属国徽的历史照片】",
+            status: "目前已升级为国家级大型专业博物馆。馆内最为震撼的是原封不动保留下来的巨型铸造车间遗址，包含高耸的冲天炉、巨大的翻砂天坑、纵横密布的耐火管道等。同时馆藏了来自全国各地的多件新中国“第一”的重型工业实体设备。",
+            statusImg: "【中国工业博物馆现代现状图：铸造馆内巨型冲天炉群落原址全景还原的震撼历史空间场景】",
+            strategy: "采取“国家级集中馆藏、全景全谱系还原”的历史活化范式。由政府主导将其系统化打造为记录中国工业发展史的核心知识库，通过高规格的历史场景复原，向全社会提供震撼的心灵洗礼，成为工业遗产阶梯式保护的最高范本。",
+            strategyImg: "【公开资料图片：中国工业博物馆外立面与展馆空间体现工业史集中展示和公共教育功能】",
+            spirit: "中国工业博物馆集中呈现了工业门类、实物设备和重大历史节点。它的精神价值在于把分散在工厂、车间和工人记忆中的经验汇聚成公共知识，让参观者理解共和国工业不是单点成就，而是一套由技术、制度、协作和信念共同支撑的体系。",
+            digital: "本平台将中国工业博物馆作为公开资料案例，提取“工业史集中展示、实体设备教育、云端导览传播”等数字化宣传启示。",
+            mode: "模式：数字孪生云游与全谱系重工遗产集中保护"
+        },
+        as_steel: {
+            title: "鞍钢集团展览馆（二号高炉工业遗迹）",
+            tag: "钢铁长子根基 · 生产性遗产数字孪生演练",
+            images: [
+                "images/sizhengshijian/as-steel-furnace-1952.png",
+                "images/sizhengshijian/as-steel-rolling-1965.jpg",
+                "images/sizhengshijian/as-steel-furnace-1952.png"
+            ],
+            history: "鞍山钢铁公司是新中国第一个大型钢铁联合企业，被称为“中国钢铁工业的摇篮”。在抗美援朝及国民经济恢复时期，鞍钢老英雄孟泰等老一辈钢铁工人，在敌机轰炸和物资极度匮乏的危险环境下，发明了“孟泰工具箱”，率先恢复了高炉生产，为全国各行各业输送了最珍贵的“工业粮食”。",
+            historyImg: "【公开资料图片：1952年鞍山钢铁修建高炉，呈现新中国钢铁工业恢复与建设的历史场景】",
+            status: "该展览馆直接依托鞍钢炼铁厂具有传奇色彩的“二号高炉”等核心冶炼遗存进行原址改建。这尊退役的工业巨兽如今静静矗立在现代展馆身侧，高炉外部的钢结构管网、出铁口和运渣轨道保存完好，散发着强烈的钢铁流金质感。",
+            statusImg: "【公开资料图片：1965年鞍山钢铁大型轧钢厂，展现钢铁工业生产空间与重型装备基础】",
+            strategy: "采用“工业标志物景观化、生产精神理论化”的特殊活化范式。将巨大的工业实体作为城市与企业的精神象征进行灯光亮化与外观保护；同时将内部空间转化为系统阐释“孟泰精神”与“鞍钢宪法”的红色理论宣讲主阵地，实现物质遗产与非物质精神遗产的双向活化。",
+            strategyImg: "【公开资料图片：以鞍钢高炉建设历史图作为视觉线索，延伸阐释钢铁工业遗产保护与红色精神传播价值】",
+            spirit: "鞍钢的核心遗产不只是高炉和轧钢设备，更是孟泰精神、鞍钢宪法和钢铁工人在艰难条件下恢复生产、改进工具、保障国家建设的经验。它体现了“自力更生、艰苦奋斗、协同攻关”的工业精神，也说明技术经验本身就是值得保护和传播的遗产。",
+            digital: "本平台以公开资料方式整理鞍钢钢铁工业记忆，使用与鞍钢生产历史相关的公开图片作为视觉线索，并提出后续可拓展的网页端资料可视化和冶炼流程科普动画设想。",
+            mode: "模式：虚拟数字视听（VR）对重型生产性遗产的沉浸式复活"
+        },
+        bx_industrial: {
+            title: "本溪湖工业遗产群",
+            tag: "煤铁联合见证 · 辽宁矿冶工业根脉",
+            images: [
+                "images/sizhengshijian/benxi-machine.jpg",
+                "images/sizhengshijian/benxi-office.jpg",
+                "images/sizhengshijian/benxi-machine.jpg"
+            ],
+            history: "本溪湖工业遗产群以煤铁资源开发、矿冶生产和近代企业发展为核心线索，记录了辽宁工业从资源开采、冶炼加工到钢铁生产配套的基础链条。它与鞍钢、沈阳铁西、大连装备制造共同构成理解共和国工业奠基地的重要拼图。",
+            historyImg: "【本溪湖工业遗产群图片：老式工业设备与厂区遗存呈现煤铁联合生产的历史记忆】",
+            status: "本溪相关工业遗存保留了矿冶工业设备、企业建筑和工业场地肌理。与单一展馆不同，遗产群更强调整体工业环境：机器、厂房、道路、事务所建筑与地方工业记忆相互连接，构成可被持续阐释的工业文化场景。",
+            statusImg: "【本溪湖工业遗产群现状图：保存的机械设备和工业场地展示矿冶工业空间特征】",
+            strategy: "可采用“遗产群整体导览 + 煤铁生产链讲解 + 研学线路串联”的活化方式，把分散遗存组织成清晰路线。重点不是只展示旧机器，而是解释煤铁资源如何转化为工业能力，以及生产安全、工艺纪律和企业组织如何支撑矿冶工业运行。",
+            strategyImg: "【本溪工业遗产活化图：以工业设备、旧址建筑和煤铁生产链为线索开展导览展示】",
+            spirit: "本溪湖工业遗产群承载的是矿冶劳动者的坚韧精神和生产组织经验。煤铁工业环境艰苦、流程复杂、风险较高，遗产保护应同时呈现劳动安全意识、协同生产纪律、设备维护经验和资源报国情怀，让观众理解工业精神来自真实生产现场。",
+            digital: "本溪内容以公开资料和本地化图文整理为主，可进一步设计“煤-铁-钢”流程可视化、矿冶设备热点标注和本溪工业记忆时间轴，作为数字化宣传的拓展模块。",
+            mode: "模式：煤铁联合遗产群的整体叙事与安全记忆教育"
+        },
+        bx_office: {
+            title: "本溪湖煤铁公司事务所旧址",
+            tag: "近代企业管理遗存 · 工业制度与档案入口",
+            images: [
+                "images/sizhengshijian/benxi-office.jpg",
+                "images/sizhengshijian/benxi-machine.jpg",
+                "images/sizhengshijian/benxi-office.jpg"
+            ],
+            history: "本溪湖煤铁公司事务所旧址提示我们，工业遗产并不只有高炉、矿井和机器。企业事务所承载了生产调度、人员管理、技术记录、财务档案和对外联系等职能，是理解近代工业企业如何组织运转的重要空间。",
+            historyImg: "【本溪湖煤铁公司事务所旧址图片：企业管理建筑保存了矿冶工业的制度记忆】",
+            status: "作为企业管理类建筑遗存，事务所旧址与生产设备形成互补关系：前者体现组织、制度和档案，后者体现工艺、劳动和机器。两类遗产放在一起，才能较完整地讲清工业文明的物质基础与管理经验。",
+            statusImg: "【本溪事务所旧址现状图：建筑外观与工业环境共同呈现企业管理记忆】",
+            strategy: "活化利用可侧重“工业档案展示”和“企业运转模拟”。通过老照片、文书档案、生产流程图和角色化导览，让观众看到一座工厂如何被计划、调度、统计和管理，从而补足传统工业遗产展示中过度偏重设备陈列的问题。",
+            strategyImg: "【本溪事务所活化图：以企业档案、生产管理流程和工业教育展示为重点】",
+            spirit: "事务所旧址所代表的精神遗产，是严密组织、科学管理和责任分工。共和国工业建设不仅需要会操作机器的工人，也需要能够组织生产、记录经验、改进流程的管理与技术队伍，这些制度经验同样是工业遗产的一部分。",
+            digital: "可在网页端建立“工业企业怎样运转”的交互模块，把生产计划、设备维护、质量检验、安全记录等流程以图表方式呈现，使事务所旧址从静态建筑转化为可理解的工业管理课堂。",
+            mode: "模式：企业管理建筑遗存的档案化展示与流程化科普"
+        },
+        fs_openpit: {
+            title: "抚顺西露天矿",
+            tag: "能源工业地标 · 露天矿坑与城市转型样本",
+            images: [
+                "images/sizhengshijian/fushun-west-openpit.jpg",
+                "images/sizhengshijian/fushun-west-openpit.jpg",
+                "images/sizhengshijian/fushun-west-openpit.jpg"
+            ],
+            history: "抚顺西露天矿始建于20世纪初，是中国近现代煤炭工业的重要见证。大规模露天开采形成了极具辨识度的矿坑地貌，也长期为东北重工业体系提供能源支撑，是理解钢铁、机械、铁路等产业如何运转的重要前置线索。",
+            historyImg: "【抚顺西露天矿图片：巨大露天矿坑呈现煤炭能源开采的历史尺度】",
+            status: "随着煤炭资源开采强度变化和城市发展方式转型，西露天矿的价值正在从单一生产空间转向工业遗产、地质景观、生态修复和公共教育的复合空间。矿坑本身既是能源工业的空间档案，也是资源型城市转型的现实教材。",
+            statusImg: "【抚顺西露天矿现状图：矿坑台阶、边坡和城市背景共同呈现矿山遗产景观】",
+            strategy: "活化利用应围绕“能源工业科普 + 矿坑生态修复 + 城市转型教育”展开。通过观景平台、矿山设备展示、煤炭运输线路解读和生态修复对比影像，让观众理解煤炭如何支撑工业化，也理解资源开采之后城市如何寻找新的发展路径。",
+            strategyImg: "【抚顺矿山活化图：以矿坑景观、煤炭开采流程和生态修复为核心叙事】",
+            spirit: "抚顺西露天矿承载的是能源工人艰苦奋斗、保障生产和服务国家建设的精神。矿山遗产不只记录开采规模，也记录高风险环境下的安全规范、班组协作、设备检修和长期劳动经验，这些看不见的生产知识同样需要被保存。",
+            digital: "抚顺内容以公开资料和本地化图片整理为主。后续可制作矿坑地貌剖面图、煤炭运输路线动效和生态修复前后对比模块，使能源工业遗产更容易被青年群体理解。",
+            mode: "模式：露天矿坑景观展示与资源型城市转型教育"
+        },
+        fx_haizhou: {
+            title: "阜新海州露天矿国家矿山公园",
+            tag: "煤炭工业遗产 · 矿山公园与城市再生实践",
+            images: [
+                "images/sizhengshijian/fuxin-haizhou-openpit.jpg",
+                "images/sizhengshijian/fuxin-haizhou-openpit.jpg",
+                "images/sizhengshijian/fuxin-haizhou-openpit.jpg"
+            ],
+            history: "阜新因煤而兴，海州露天矿是其煤炭工业记忆最具代表性的空间之一。巨大的露天矿坑、采掘设备和矿区道路共同记录了煤炭开采支撑工业生产、城市建设和能源供给的历史，也见证了资源型城市发展逻辑的变迁。",
+            historyImg: "【阜新海州露天矿图片：国家矿山公园中的矿坑地貌与工业遗存】",
+            status: "海州露天矿国家矿山公园将矿山遗址、矿坑景观和公共游览功能结合起来，使曾经的生产空间转化为工业旅游、城市记忆和生态教育场所。它的意义不只是“看矿坑”，更在于展示资源枯竭型城市如何把工业伤痕转化为公共文化资产。",
+            statusImg: "【阜新海州露天矿现状图：矿山公园视角下的露天矿坑与城市更新空间】",
+            strategy: "可进一步强化“矿山记忆 + 生态修复 + 城市转型”的综合叙事。通过矿工口述史、采煤流程模型、老设备数字标注和生态修复路线，把游客从单纯观景带入对煤炭工业体系、劳动风险和城市再生的理解。",
+            strategyImg: "【阜新矿山公园活化图：矿坑景观、采煤记忆和生态教育组合展示】",
+            spirit: "阜新煤炭遗产背后的精神，是矿工群体在高强度、高风险劳动中形成的坚韧、协作和责任。工业精神在这里不仅是生产热情，也包括面对资源枯竭后的转型勇气，以及把城市伤痕修复为公共空间的长期努力。",
+            digital: "阜新内容以公开资料研读和图片本地化展示为主。后续可开发“矿山城市时间轴”“矿坑生态修复对比图”和“矿工记忆声音档案”，让煤炭工业遗产从地景变成可阅读的城市故事。",
+            mode: "模式：国家矿山公园的工业旅游、生态修复与口述史传播"
+        }
+    };
+
+    function focusCity(cityId) {
+        const pins = document.getElementsByClassName('map-pin');
+        for (let pin of pins) { pin.classList.remove('active'); }
+        document.getElementById('pin-' + cityId).classList.add('active');
+        
+        const groups = document.getElementsByClassName('city-group');
+        for (let group of groups) { group.classList.remove('highlight'); }
+        
+        const targetGroup = document.getElementById('group-' + cityId);
+        targetGroup.classList.add('highlight');
+        
+        const panel = document.getElementById('info-panel');
+        panel.scrollTop = targetGroup.offsetTop - panel.offsetTop - 10;
+    }
+
+    function openDetailPage(key) {
+        const data = activationData[key];
+        if (!data) return;
+        const isFieldPractice = key === 'dl_ice';
+        const statusTitle = isFieldPractice ? '二、现代工业遗产现状（实地走访观察）' : '二、现代工业遗产现状（公开资料研读）';
+        const strategyTitle = isFieldPractice ? '三、工业遗产活化方式（现场观察与空间分析）' : '三、工业遗产活化方式（案例分析）';
+        const renderImage = (src, alt, caption) => src ? `
+                <div class="heritage-img-container">
+                    <div class="detail-figure"><img src="${src}" alt="${alt}"></div>
+                    <div class="heritage-img-caption">${caption}</div>
+                </div>
+            ` : '';
+
+        const fieldPracticeContent = `
+            <div class="detail-header">
+                <h2>${data.title}</h2>
+                <span class="detail-tag">${data.tag}</span>
+            </div>
+            
+            <div class="detail-section-block">
+                <h4>一、辉煌历史溯源（承载红色记忆）</h4>
+                <p>${data.history}</p>
+                ${renderImage(data.images[0], data.title + '历史意象图', data.historyImg)}
+            </div>
+            
+            <div class="detail-section-block">
+                <h4>${statusTitle}</h4>
+                <p>${data.status}</p>
+                ${renderImage(data.images[1], data.title + '现状意象图', data.statusImg)}
+                ${renderImage(data.images[3], data.title + '厂房内部实地图', data.statusImg2)}
+            </div>
+            
+            <div class="detail-section-block">
+                <h4>${strategyTitle}</h4>
+                <p>${data.strategy}</p>
+                ${renderImage(data.images[2], data.title + '活化利用意象图', data.strategyImg)}
+            </div>
+
+            <div class="detail-section-block spirit-detail-block">
+                <h4>四、精神、技术与经验传承</h4>
+                <p>${data.spirit}</p>
+            </div>
+            
+            <div class="detail-section-block">
+                <h4>五、数字化宣传与青年赋能成果</h4>
+                <p>${data.digital}</p>
+            </div>
+            
+            <div class="mode-highlight-box">
+                <p>${data.mode}</p>
+            </div>
+
+            <div class="detail-bottom-actions">
+                <button class="detail-bottom-back" onclick="closeDetailPage()">返回主界面</button>
+            </div>
+        `;
+
+        const caseStudyContent = `
+            <div class="detail-header">
+                <h2>${data.title}</h2>
+                <span class="detail-tag">${data.tag}</span>
+            </div>
+            
+            <div class="detail-section-block">
+                <h4>一、地点概况与历史价值</h4>
+                <p>${data.history}</p>
+                ${renderImage(data.images[0], data.title + '实景图', data.historyImg)}
+            </div>
+            
+            <div class="detail-section-block">
+                <h4>二、遗产现状与活化思路</h4>
+                <p>${data.status}</p>
+                <p>${data.strategy}</p>
+            </div>
+
+            <div class="detail-section-block spirit-detail-block">
+                <h4>三、精神、技术与经验价值</h4>
+                <p>${data.spirit}</p>
+            </div>
+            
+            <div class="detail-section-block">
+                <h4>四、数字化展示设想</h4>
+                <p>${data.digital}</p>
+            </div>
+            
+            <div class="mode-highlight-box">
+                <p>${data.mode}</p>
+            </div>
+
+            <div class="detail-bottom-actions">
+                <button class="detail-bottom-back" onclick="closeDetailPage()">返回主界面</button>
+            </div>
+        `;
+
+        document.getElementById('page-content').innerHTML = isFieldPractice ? fieldPracticeContent : caseStudyContent;
+        
+        const overlay = document.getElementById('detail-page-overlay');
+        overlay.style.display = 'block';
+        setTimeout(() => {
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }, 10);
+    }
+
+    function closeDetailPage() {
+        const overlay = document.getElementById('detail-page-overlay');
+        overlay.classList.remove('active');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }, 300);
+    }
+</script>
+</body>
+</html>
