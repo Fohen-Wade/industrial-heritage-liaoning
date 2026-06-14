@@ -343,6 +343,7 @@
         .video-card.project-video-slot { grid-column: 1 / -1; max-width: 860px; width: 100%; margin: 4px auto 0; border: 1px dashed rgba(21,101,192,0.45); }
         .video-embed { width: 100%; aspect-ratio: 16 / 9; min-height: 285px; background: #111820; border-bottom: 3px solid var(--industrial-blue); }
         .video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .video-embed video { width: 100%; height: 100%; display: block; object-fit: contain; background: #111820; }
         .video-empty-frame { min-height: 360px; aspect-ratio: 16 / 9; background: linear-gradient(135deg, #1f2a30, #263943); color: white; display: grid; place-items: center; text-align: center; padding: 30px; border-bottom: 3px solid var(--primary-red); }
         .video-empty-frame strong { display: block; font-size: 1.35rem; margin-bottom: 8px; }
         .video-empty-frame span { color: rgba(255,255,255,0.76); font-size: 0.96rem; }
@@ -934,12 +935,12 @@
     <div class="video-grid">
         <div class="video-card">
             <div class="video-embed">
-                <iframe src="https://player.bilibili.com/player.html?bvid=BV1Pez2YyEJQ&page=1&high_quality=1&autoplay=0" title="探秘大连冰山慧谷" allowfullscreen="allowfullscreen" scrolling="no"></iframe>
+                <iframe src="https://player.bilibili.com/player.html?bvid=BV1r3411N7Vr&page=1&high_quality=1&autoplay=0" title="辽宁工业遗产相关视频" allowfullscreen="allowfullscreen" scrolling="no"></iframe>
             </div>
             <div class="video-info-box">
-                <h4>探秘大连冰山慧谷</h4>
-                <p>视频聚焦大连冰山慧谷及其工业文化空间，可作为本项目冰山展馆实践内容的延伸观看材料。</p>
-                <a class="video-link" href="https://www.bilibili.com/video/BV1Pez2YyEJQ/" target="_blank" rel="noopener">无法播放时打开 B 站原视频</a>
+                <h4>辽宁工业遗产相关视频</h4>
+                <p>作为数字化宣传区的补充视频材料，帮助观众从影像角度理解辽宁工业遗产与工业文化传播。</p>
+                <a class="video-link" href="https://www.bilibili.com/video/BV1r3411N7Vr/" target="_blank" rel="noopener">无法播放时打开 B 站原视频</a>
             </div>
         </div>
         <div class="video-card">
@@ -973,15 +974,14 @@
             </div>
         </div>
         <div class="video-card project-video-slot">
-            <div class="video-empty-frame">
-                <div>
-                    <strong>项目组自制宣传视频</strong>
-                    <span>预留视频位：后续可插入团队拍摄剪辑的实践成果视频</span>
-                </div>
+            <div class="video-embed">
+                <video controls preload="metadata" src="video/思政实践成果.mp4">
+                    当前浏览器不支持视频播放。
+                </video>
             </div>
             <div class="video-info-box">
                 <h4>共和国工业奠基地工业遗产活化利用实践纪实</h4>
-                <p>此处预留给项目组自制视频，可集中呈现冰山展馆实践影像、访谈片段、问卷发现和辽宁工业遗产数字化宣传成果。</p>
+                <p>项目组自制实践成果视频，集中呈现冰山展馆实践影像、访谈片段、问卷发现和辽宁工业遗产数字化宣传成果。</p>
             </div>
         </div>
     </div>
